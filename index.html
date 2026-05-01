@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Signal Orbit — Coherence orchestration for your venture's media orbit</title>
+<meta name="description" content="Signal Orbit organizes a venture's assets, touchpoints, and publications around a central core, so coherence propagates without fragmentation." />
+<meta name="theme-color" content="#0a0b10" />
+<meta property="og:title" content="Signal Orbit — Coherence orchestration for your venture's media orbit" />
+<meta property="og:description" content="Bring your venture back to one synchronized source." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://signal-orbit.co" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0b10; --bg-2:#0f1118;
+    --text:#d8dae3; --text-soft:#b3b6c2; --text-muted:#8a8d99;
+    --accent:#f4ead6; --accent-soft:rgba(244,234,214,0.5); --accent-glow:rgba(244,234,214,0.12);
+    --line:rgba(244,234,214,0.08);
+    --serif:'Fraunces',Georgia,serif; --sans:'Inter',-apple-system,system-ui,sans-serif;
+    --measure:38rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{width:100%;max-width:var(--measure);margin:0 auto;padding:0 1.5rem}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;color:#f4f4f6;letter-spacing:-0.01em}
+
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:6rem 1.5rem;overflow:hidden;isolation:isolate}
+  .orbit-bg{position:absolute;top:50%;left:50%;width:1400px;height:1400px;max-width:140vmax;max-height:140vmax;transform:translate(-50%,-50%);z-index:-1;opacity:0.55;pointer-events:none}
+  .orbit-bg svg{width:100%;height:100%;display:block}
+  .ring{stroke:var(--line);fill:none}
+  .core{fill:var(--accent-soft);filter:drop-shadow(0 0 40px var(--accent-glow))}
+  .satellite{fill:var(--accent-soft)}
+  .rotor-1{animation:spin 240s linear infinite;transform-origin:center}
+  .rotor-2{animation:spin 360s linear infinite reverse;transform-origin:center}
+  .rotor-3{animation:spin 480s linear infinite;transform-origin:center}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.rotor-1,.rotor-2,.rotor-3{animation:none}}
+
+  .hero-inner{text-align:center;max-width:44rem}
+  .kicker{font-size:0.75rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent-soft);margin-bottom:1.75rem;font-weight:500}
+  h1{font-size:clamp(2.1rem,5.2vw,3.6rem);line-height:1.12;margin-bottom:1.5rem}
+  .lede{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--text-soft);line-height:1.65;max-width:36rem;margin:0 auto 2.5rem}
+
+  .cta-primary{display:inline-block;padding:0.95rem 2rem;border:1px solid var(--accent-soft);color:var(--accent);text-decoration:none;font-size:0.92rem;letter-spacing:0.06em;text-transform:uppercase;transition:background .4s ease,color .4s ease;border-radius:1px}
+  .cta-primary:hover,.cta-primary:focus-visible{background:var(--accent);color:var(--bg);outline:none}
+
+  section.block{padding:6rem 0;position:relative}
+  section.block + section.block{border-top:1px solid var(--line)}
+  .block-tag{font-family:var(--sans);font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.5rem;display:inline-block}
+  .block-tag::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent-soft);margin-right:0.7rem;vertical-align:middle;transform:translateY(-1px)}
+  h2{font-size:clamp(1.65rem,3vw,2.1rem);line-height:1.2;margin-bottom:1.4rem}
+  .block p{color:var(--text-soft);font-size:1.06rem;line-height:1.7;margin-bottom:1.1rem}
+  .block p:last-child{margin-bottom:0}
+  .block p strong{color:var(--text);font-weight:500}
+
+  .pull{text-align:center;padding:8rem 1.5rem;background:linear-gradient(180deg,transparent,var(--bg-2),transparent)}
+  .pull blockquote{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.3;color:#f4f4f6;font-weight:300;max-width:32rem;margin:0 auto;font-style:italic}
+
+  .cta-block{padding:7rem 1.5rem;text-align:center;border-top:1px solid var(--line)}
+  .cta-block h2{margin-bottom:1.4rem;max-width:32rem;margin-left:auto;margin-right:auto}
+  .cta-block p{color:var(--text-soft);max-width:30rem;margin:0 auto 2.5rem;font-size:1.05rem}
+  .cta-actions{display:inline-flex;flex-direction:column;gap:1rem;align-items:center}
+  .cta-email{color:var(--accent);text-decoration:none;font-size:0.95rem;letter-spacing:0.04em;border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .3s ease}
+  .cta-email:hover{border-color:var(--accent-soft)}
+
+  footer{padding:2.5rem 1.5rem;text-align:center;border-top:1px solid var(--line);color:var(--text-muted);font-size:0.82rem;letter-spacing:0.04em}
+  footer .mark{color:var(--accent-soft);margin-right:0.6rem}
+
+  @media (max-width:640px){section.block{padding:4.5rem 0}.pull{padding:5rem 1.5rem}.cta-block{padding:5rem 1.5rem}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="orbit-bg" aria-hidden="true">
+    <svg viewBox="-700 -700 1400 1400" preserveAspectRatio="xMidYMid meet">
+      <g class="rotor-1"><circle class="ring" cx="0" cy="0" r="180" stroke-width="0.6"/><circle class="satellite" cx="180" cy="0" r="2.5"/></g>
+      <g class="rotor-2"><circle class="ring" cx="0" cy="0" r="320" stroke-width="0.6"/><circle class="satellite" cx="-320" cy="0" r="2.5"/></g>
+      <g class="rotor-3"><circle class="ring" cx="0" cy="0" r="500" stroke-width="0.6"/><circle class="satellite" cx="354" cy="354" r="2.5"/></g>
+      <circle class="ring" cx="0" cy="0" r="660" stroke-width="0.6"/>
+      <circle class="core" cx="0" cy="0" r="6"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <p class="kicker">Signal Orbit</p>
+    <h1>Coherence orchestration for your venture's media orbit.</h1>
+    <p class="lede">An intelligent media conduction system that organizes a venture's assets, touchpoints, and publications around a central core — so coherence can propagate across the whole constellation without fragmentation or drift.</p>
+    <a class="cta-primary" href="#apply">Apply for an installation</a>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">The challenge</span>
+    <h2>As ventures grow, expression usually expands faster than coherence.</h2>
+    <p>Pages accumulate, offers multiply, decks diverge, publications proliferate, stakeholder language shifts by context, and the cost of alignment rises with every new asset.</p>
+    <p>The problem is rarely lack of material. It is loss of coordination. <strong>What should compound begins to fragment.</strong></p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">The shift</span>
+    <h2>Signal Orbit installs a structure in which the venture's media field can organize around a center that holds.</h2>
+    <p>Instead of treating assets as isolated outputs, it brings them into a routed relation to a shared source — so coherence no longer has to be renegotiated from scratch at every touchpoint.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">Core mechanism &middot; 1</span>
+    <h2>The Signal Core</h2>
+    <p>At the center of the system sits a fractal master one-pager that compresses the venture's irreducible truth into its most concentrated coherent form.</p>
+    <p>This is not a summary but a <strong>governing artifact</strong>. It preserves the load-bearing elements of the venture under maximum compression, serves as the integrity reference for expansion, and provides the source sheet from which downstream assets can be generated, revised, and tested.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">Core mechanism &middot; 2</span>
+    <h2>The Satellite Constellation</h2>
+    <p>Around this core sits the field of pages, decks, offers, publications, stakeholder communications, and other media units through which the venture appears in the world.</p>
+    <p>These elements are not managed as a loose pile of outputs, but as a routed system. Each can remain specific to its context, format, and audience while still staying <strong>structurally aligned with the same underlying core</strong>.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">Two-way coherence</span>
+    <h2>Clarification flows out. Pressure flows in.</h2>
+    <p>A clarification in the core can propagate across the asset field. Pressures, inconsistencies, or new developments arising anywhere in the field can be pulled back into the core for integration.</p>
+    <p>The result is not more content, but <strong>a different condition of expansion</strong>.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">The outcome</span>
+    <h2>Coherence becomes cheaper to maintain as the venture grows.</h2>
+    <p>Signal Orbit turns scattered expression into a compounding media orbit: one in which the core stays intact, the constellation stays coordinated, and each new asset strengthens the field instead of diluting its integrity.</p>
+  </div>
+</section>
+
+<aside class="pull">
+  <blockquote>"Bring your venture back to one synchronized source."</blockquote>
+</aside>
+
+<section class="block">
+  <div class="wrap">
+    <span class="block-tag">For whom</span>
+    <h2>Ventures whose assets, language, and outputs have started to outgrow their coordination.</h2>
+    <p>If coherence has become expensive across your website, offers, publications, and communications, Signal Orbit can help consolidate the core and route the constellation.</p>
+  </div>
+</section>
+
+<section class="cta-block" id="apply">
+  <div class="wrap">
+    <h2>Apply for a Signal Orbit installation</h2>
+    <p>Each engagement begins with a short conversation to understand the shape of your current media field and where coherence has begun to leak.</p>
+    <div class="cta-actions">
+      <a class="cta-primary" href="mailto:connect@signal-orbit.com?subject=Signal%20Orbit%20installation%20application">Begin the conversation</a>
+      <a class="cta-email" href="mailto:connect@signal-orbit.com">connect@signal-orbit.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="mark">&#9673;</span>Signal Orbit &middot; idea2.life
+</footer>
+
+</body>
+</html>
