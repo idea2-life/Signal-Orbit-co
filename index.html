@@ -67,10 +67,23 @@
   .cta-email{color:var(--accent);text-decoration:none;font-size:0.95rem;letter-spacing:0.04em;border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .3s ease}
   .cta-email:hover{border-color:var(--accent-soft)}
 
+  .newsletter{padding:6rem 1.5rem;text-align:center;border-top:1px solid var(--line)}
+  .newsletter h2{margin-bottom:1rem}
+  .newsletter p.lede{color:var(--text-soft);max-width:30rem;margin:0 auto 2rem;font-size:1.02rem}
+  .newsletter-form{display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;max-width:26rem;margin:0 auto 1rem}
+  .newsletter-input{flex:1 1 14rem;padding:0.85rem 1.1rem;border:1px solid var(--line);background:var(--bg-2);color:var(--text);font-family:var(--sans);font-size:0.95rem;border-radius:1px}
+  .newsletter-input:focus{outline:1px solid var(--accent-soft);outline-offset:1px}
+  .newsletter-submit{padding:0.85rem 1.8rem;border:1px solid var(--accent-soft);background:transparent;color:var(--accent);font-family:var(--sans);font-size:0.9rem;letter-spacing:0.06em;text-transform:uppercase;border-radius:1px;cursor:pointer;transition:background .3s ease,color .3s ease}
+  .newsletter-submit:hover,.newsletter-submit:focus-visible{background:var(--accent);color:var(--bg)}
+  .newsletter-submit:disabled{opacity:0.55;cursor:not-allowed}
+  .newsletter-msg{min-height:1.2rem;font-size:0.88rem;color:var(--accent-soft);margin:0 0 0.75rem}
+  .newsletter-msg[data-state="error"]{color:var(--text-soft)}
+  .newsletter-note{color:var(--text-muted);font-size:0.8rem;letter-spacing:0.02em}
+
   footer{padding:2.5rem 1.5rem;text-align:center;border-top:1px solid var(--line);color:var(--text-muted);font-size:0.82rem;letter-spacing:0.04em}
   footer .mark{color:var(--accent-soft);margin-right:0.6rem}
 
-  @media (max-width:640px){section.block{padding:4.5rem 0}.pull{padding:5rem 1.5rem}.cta-block{padding:5rem 1.5rem}}
+  @media (max-width:640px){section.block{padding:4.5rem 0}.pull{padding:5rem 1.5rem}.cta-block{padding:5rem 1.5rem}.newsletter{padding:4.5rem 1.5rem}.newsletter-form{flex-direction:column;align-items:stretch}}
 </style>
 </head>
 <body>
@@ -168,9 +181,81 @@
   </div>
 </section>
 
+<section class="newsletter">
+  <div class="wrap">
+    <h2>Be first to know when Signal Orbit launches.</h2>
+    <p class="lede">Occasional dispatches on the build — no noise, no drift.</p>
+    <form id="so-newsletter-form" class="newsletter-form" novalidate>
+      <input id="so-newsletter-email" class="newsletter-input" type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+      <button type="submit" id="so-newsletter-submit" class="newsletter-submit">Subscribe</button>
+    </form>
+    <p id="so-newsletter-msg" class="newsletter-msg" role="status" aria-live="polite"></p>
+    <p class="newsletter-note">Double opt-in. Unsubscribe anytime. No tracking.</p>
+  </div>
+</section>
+
 <footer>
   <span class="mark">&#9673;</span>Signal Orbit &middot; idea2.life
 </footer>
+
+<script>
+  (function () {
+    var form = document.getElementById('so-newsletter-form');
+    if (!form) return;
+    var emailInput = document.getElementById('so-newsletter-email');
+    var submitBtn = document.getElementById('so-newsletter-submit');
+    var msg = document.getElementById('so-newsletter-msg');
+
+    function setMsg(text, state) {
+      msg.textContent = text;
+      if (state) {
+        msg.setAttribute('data-state', state);
+      } else {
+        msg.removeAttribute('data-state');
+      }
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = emailInput.value.trim();
+      if (!email) return;
+
+      submitBtn.disabled = true;
+      setMsg('', null);
+
+      fetch('https://subscriber.questhub.eco/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          project: 'signal-orbit',
+          source: 'signal-orbit.co',
+          gdpr: true
+        })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('bad status');
+          return res.json();
+        })
+        .then(function (data) {
+          if (data.status === 'already_subscribed') {
+            setMsg("You're already on the list.", 'ok');
+          } else if (data.status === 'confirmation_sent' || data.status === 'confirmation_pending') {
+            setMsg('Almost there — check your inbox to confirm.', 'ok');
+            form.reset();
+          } else {
+            setMsg('Subscription service is briefly unavailable — please try again later.', 'error');
+          }
+        })
+        .catch(function () {
+          setMsg('Subscription service is briefly unavailable — please try again later.', 'error');
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+        });
+    });
+  })();
+</script>
 
 </body>
 </html>
